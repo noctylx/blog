@@ -114,11 +114,7 @@ export default defineConfig({
 		}
 	},
 	integrations: [
-		svelte({
-			compilerOptions: {
-				css: "injected"
-			}
-		}),
+		svelte(),
 		mdx(),
 		sitemap(),
 		swup({
