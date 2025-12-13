@@ -1,14 +1,14 @@
 import siteConfig from "./src/utils/config";
 
 const config = siteConfig({
-	title: "ThoughtLite",
-	prologue: "If you need a website\nthat loads fast and has great SEO, then Astro is for you.",
+	title: "Noctyl's Blog",
+	prologue: "Font-end Developer | Tech Enthusiast | Content Creator",
 	author: {
-		name: "Your Name",
-		email: "hi@your.mail",
-		link: "https://your.website"
+		name: "Noctyl",
+		email: "Noctylx@outlook.com",
+		link: "https://github.com/noctylx"
 	},
-	description: "A modern Astro theme focused on content creation.",
+	description: "A personal blog sharing insights on front-end development and technology.",
 	copyright: {
 		type: "CC BY-NC-ND 4.0",
 		year: "2025"
