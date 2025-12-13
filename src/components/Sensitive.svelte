@@ -4,15 +4,23 @@ import type { Snippet } from "svelte";
 import { fade } from "svelte/transition";
 import i18nit from "$i18n";
 
-let { locale, sensitive = false, back, children }: { locale: string; sensitive: boolean; back: string; children: Snippet } = $props();
+let {
+	locale,
+	sensitive: initialSensitive = false,
+	back,
+	children
+}: { locale: string; sensitive: boolean; back: string; children: Snippet } = $props();
 
 const t = i18nit(locale);
 
-if (sensitive) {
-	$effect(() => {
-		if (!sensitive) window.zoom();
-	});
-}
+// Create local state from prop to allow mutation
+let sensitive = $state(initialSensitive);
+
+$effect(() => {
+	if (!sensitive && typeof window !== "undefined" && typeof window.zoom === "function") {
+		window.zoom();
+	}
+});
 </script>
 
 {#if sensitive}

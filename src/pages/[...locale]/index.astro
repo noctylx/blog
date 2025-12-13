@@ -99,7 +99,7 @@ const { Content } = preface ? await render(preface) : ({} as any);
 		{
 			latest && (
 				<footer class="flex items-center justify-center flex-wrap-reverse gap-10">
-					<Heatmap {locale} {notes} {jottings} />
+					<Heatmap {locale} {notes} {jottings} weeks={20} />
 
 					<blockquote class="grow flex flex-col">
 						<h4>{t("home.latest")}</h4>

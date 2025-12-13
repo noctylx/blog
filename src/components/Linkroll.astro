@@ -30,14 +30,14 @@ const { locale, links } = Astro.props;
 const t = i18nit(locale, "linkroll");
 
 const types = {
-	resources: { name: t("type.resources"), icon: "lucide--tool-case" },
-	community: { name: t("type.community"), icon: "lucide--network" },
-	insights: { name: t("type.insights"), icon: "lucide--lightbulb" },
-	technology: { name: t("type.technology"), icon: "lucide--terminal" },
-	expertise: { name: t("type.expertise"), icon: "lucide--book-open-text" },
-	creative: { name: t("type.creative"), icon: "lucide--palette" },
-	lifestyle: { name: t("type.lifestyle"), icon: "lucide--coffee" },
-	general: { name: t("type.general"), icon: "lucide--box" }
+	resources: { name: t("type.resources"), icon: "lucide--tool-case" as const },
+	community: { name: t("type.community"), icon: "lucide--network" as const },
+	insights: { name: t("type.insights"), icon: "lucide--lightbulb" as const },
+	technology: { name: t("type.technology"), icon: "lucide--terminal" as const },
+	expertise: { name: t("type.expertise"), icon: "lucide--book-open-text" as const },
+	creative: { name: t("type.creative"), icon: "lucide--palette" as const },
+	lifestyle: { name: t("type.lifestyle"), icon: "lucide--coffee" as const },
+	general: { name: t("type.general"), icon: "lucide--box" as const }
 };
 
 const fallback = "/linkback.webp";
