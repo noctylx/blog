@@ -48,8 +48,7 @@ const CANCEL_MESSAGE = t("new.cancel");
 		// Exit if user cancels the selection
 		isCancel(locale) && (cancel(CANCEL_MESSAGE), process.exit(0));
 
-		// Update path based on selected locale
-		path = join(path, locale);
+		// Note: Locale is used as filename, not directory
 	}
 
 	// Generate timestamp in ISO format with timezone
@@ -63,8 +62,16 @@ const CANCEL_MESSAGE = t("new.cancel");
 		information.timestamp = timestamp;
 
 		content += i18nit(locale, "script")("new.preface.start");
-		// Generate filename from timestamp (e.g., 1970-01-01-00-00-00.md)
-		path = join(path, `${timestamp.substring(0, 19).replace(/[\s:]/g, "-")}.md`);
+		// Generate directory name from timestamp (e.g., 1970-01-01-00-00-00/)
+		const dirname = timestamp.substring(0, 19).replace(/[\s:]/g, "-");
+
+		if (monolocale) {
+			// Monolocale: preface/timestamp.md
+			path = join(path, `${dirname}.md`);
+		} else {
+			// Multilingual: preface/timestamp/locale.md
+			path = join(path, dirname, `${locale}.md`);
+		}
 	} else {
 		// Note and Jotting require additional metadata
 		content += i18nit(locale, "script")("new.article.start");
@@ -181,12 +188,24 @@ const CANCEL_MESSAGE = t("new.cancel");
 		isCancel(folder) && (cancel(CANCEL_MESSAGE), process.exit(0));
 
 		// Set file path based on selected structure
-		if (folder === "folder") {
-			// Folder structure: content-type/locale/ID/index.md
-			path = join(path, id, "index.md");
+		if (monolocale) {
+			// Monolocale structure (no locale directories)
+			if (folder === "folder") {
+				// Folder structure: content-type/ID/index.md
+				path = join(path, id, "index.md");
+			} else {
+				// Flat structure: content-type/ID.md
+				path = join(path, `${id}.md`);
+			}
 		} else {
-			// Flat structure: content-type/locale/ID.md
-			path = join(path, `${id}.md`);
+			// Multilingual structure (article directories with locale filenames)
+			if (folder === "folder") {
+				// Folder structure: content-type/ID/locale/index.md
+				path = join(path, id, locale, "index.md");
+			} else {
+				// Flat structure: content-type/ID/locale.md
+				path = join(path, id, `${locale}.md`);
+			}
 		}
 	}
 

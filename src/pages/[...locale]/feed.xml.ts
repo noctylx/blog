@@ -4,6 +4,7 @@ import { getCollection, render } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { Feed } from "feed";
 import config, { monolocale } from "$config";
+import { isContentForLocale, extractPathFromId } from "$utils/content";
 import i18nit from "$i18n";
 
 export async function getStaticPaths() {
@@ -45,7 +46,7 @@ export const GET: APIRoute = async ({ site, params }) => {
 		const notes = await getCollection("note", note => {
 			// Apply filtering criteria
 			const published = !note.data.draft; // Exclude draft posts
-			const localed = monolocale || note.id.split("/")[0] === language; // Language filter
+			const localed = isContentForLocale(note.id, language); // Language filter
 
 			// Include note only if it passes all filters
 			return published && localed;
@@ -53,7 +54,7 @@ export const GET: APIRoute = async ({ site, params }) => {
 
 		// Attach locale and link for each note
 		notes.forEach(note => {
-			const id = monolocale ? note.id : note.id.split("/").slice(1).join("/");
+			const id = extractPathFromId(note.id);
 			Reflect.set(note, "link", new URL(getRelativeLocaleUrl(language, `/note/${id}`), site).toString());
 		});
 
@@ -64,7 +65,7 @@ export const GET: APIRoute = async ({ site, params }) => {
 		const jottings = await getCollection("jotting", jotting => {
 			// Apply filtering criteria
 			const published = !jotting.data.draft; // Exclude draft posts
-			const localed = monolocale || jotting.id.split("/")[0] === language; // Language filter
+			const localed = isContentForLocale(jotting.id, language); // Language filter
 
 			// Include jotting only if it passes all filters
 			return published && localed;
@@ -72,7 +73,7 @@ export const GET: APIRoute = async ({ site, params }) => {
 
 		// Attach locale and link for each jotting
 		jottings.forEach(jotting => {
-			const id = monolocale ? jotting.id : jotting.id.split("/").slice(1).join("/");
+			const id = extractPathFromId(jotting.id);
 			Reflect.set(jotting, "link", new URL(getRelativeLocaleUrl(language, `/jotting/${id}`), site).toString());
 		});
 

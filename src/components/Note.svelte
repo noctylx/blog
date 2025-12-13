@@ -4,6 +4,7 @@ import { onMount } from "svelte";
 import { flip } from "svelte/animate";
 import { fade } from "svelte/transition";
 import { monolocale } from "$config";
+import { extractPathFromId } from "$utils/content";
 import Time from "$utils/time";
 import Icon from "$components/Icon.svelte";
 import i18nit from "$i18n";
@@ -107,7 +108,7 @@ onMount(() => {
 							{#if note.data.series}<button onclick={() => chooseSeries(note.data.series, true)}>{note.data.series}</button>{/if}
 						</div>
 						{#if note.data.series}<span class="my-0.5 mx-1 border-e-[1.75px] self-stretch"></span>{/if}
-						<a href={getRelativeLocaleUrl(locale, `/note/${monolocale ? note.id : note.id.split("/").slice(1).join("/")}`)} class="link">{note.data.title}</a>
+						<a href={getRelativeLocaleUrl(locale, `/note/${extractPathFromId(note.id)}`)} class="link">{note.data.title}</a>
 					</div>
 					<time datetime={note.data.timestamp.toISOString()} class="font-mono text-[0.65rem] leading-none text-remark">{Time(note.data.timestamp)}</time>
 				</div>

@@ -14,11 +14,11 @@ const { locale = config.i18n.defaultLocale } = Astro.params;
 
 const t = i18nit(locale);
 
-const localePrefix = monolocale ? "" : `${locale}/`;
+const localeSuffix = monolocale ? "" : `/${locale}`;
 
-const introduction = await getEntry("information", `${localePrefix}introduction`);
-const linkroll = await getEntry("information", `${localePrefix}linkroll`);
-const chronicle = (await getEntry("information", `${localePrefix}chronicle`))?.data;
+const introduction = await getEntry("information", `introduction${localeSuffix}`);
+const linkroll = await getEntry("information", `linkroll${localeSuffix}`);
+const chronicle = (await getEntry("information", `chronicle${localeSuffix}`))?.data;
 
 const { Content: Introduction } = introduction ? await render(introduction) : ({} as any);
 const { Content: Linkroll } = linkroll ? await render(linkroll) : ({} as any);

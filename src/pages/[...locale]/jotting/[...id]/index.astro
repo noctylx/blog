@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import config, { monolocale } from "$config";
+import { generatePathParams } from "$utils/content";
 import Time from "$utils/time";
 import Base from "$layouts/Base.astro";
 import Position from "$components/Position.astro";
@@ -13,21 +14,8 @@ export async function getStaticPaths() {
 	const jottings = await getCollection("jotting", jotting => !jotting.data.draft);
 
 	return jottings.map(jotting => {
-		let locale: string | undefined;
-		let id: string;
-
-		if (monolocale) {
-			locale = undefined;
-			id = jotting.id;
-		} else {
-			// Extract language and jotting ID from file path structure
-			const [language, ...ids] = jotting.id.split("/");
-
-			locale = config.i18n.defaultLocale === language ? undefined : language;
-			id = ids.join("/");
-		}
-
 		// Generate path params with optional locale (omit for default locale)
+		const { locale, id } = generatePathParams(jotting.id);
 		return { params: { locale, id }, props: { jotting } };
 	});
 }

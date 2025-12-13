@@ -1,23 +1,14 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
 import config, { monolocale } from "$config";
+import { generatePathParams } from "$utils/content";
 import graph from "$graph/content";
 
 export async function getStaticPaths() {
 	const notes = await getCollection("note", note => !note.data.draft);
 
 	return notes.map(note => {
-		let locale: string | undefined;
-		let id: string;
-
-		if (monolocale) {
-			locale = undefined;
-			id = note.id;
-		} else {
-			const [language, ...ids] = note.id.split("/");
-			locale = config.i18n.defaultLocale === language ? undefined : language;
-			id = ids.join("/");
-		}
+		const { locale, id } = generatePathParams(note.id);
 
 		return {
 			params: { locale, id },

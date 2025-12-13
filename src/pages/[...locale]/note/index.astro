@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import config, { monolocale } from "$config";
+import { isContentForLocale } from "$utils/content";
 import Base from "$layouts/Base.astro";
 import Note from "$components/Note.svelte";
 import i18nit from "$i18n";
@@ -17,7 +18,7 @@ const t = i18nit(locale);
 const notes = await getCollection("note", note => {
 	// Filter by publication status and locale
 	let published = !note.data.draft;
-	let localed = monolocale || note.id.split("/")[0] === locale;
+	let localed = isContentForLocale(note.id, locale);
 
 	return published && localed;
 });

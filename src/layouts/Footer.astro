@@ -2,6 +2,7 @@
 import { getCollection, getEntry, render } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { monolocale } from "$config";
+import { isContentForLocale } from "$utils/content";
 import Icon from "$components/Icon.svelte";
 import i18nit from "$i18n";
 
@@ -69,7 +70,7 @@ if (copyright.type === "CC0 1.0") {
 const notes = await getCollection("note", note => {
 	// Filter by publication status and locale
 	let published = !note.data.draft;
-	let localed = monolocale || note.id.split("/")[0] === locale;
+	let localed = isContentForLocale(note.id, locale);
 
 	return published && localed;
 });
@@ -83,7 +84,7 @@ const noteWords = (await Promise.all(notes.map(async note => (await render(note)
 const jottings = await getCollection("jotting", jotting => {
 	// Filter by publication status and locale
 	let published = !jotting.data.draft;
-	let localed = monolocale || jotting.id.split("/")[0] === locale;
+	let localed = isContentForLocale(jotting.id, locale);
 
 	return published && localed;
 });

@@ -41,7 +41,7 @@ Four distinct content types managed via Astro Content Collections:
 - **`src/content/preface/`** - Homepage introductory content
 - **`src/content/information/`** - Static pages (about, policy, etc.)
 
-Each collection supports multilingual content via subdirectories (`en/`, `zh-cn/`, `ja/`). Files starting with underscore (`_*.md`) are excluded from builds.
+Each collection supports multilingual content via article directories, where each article has language-specific files (`en.md`, `zh-cn.md`, `ja.md`). Files starting with underscore (`_*.md`) are excluded from builds.
 
 **Schema Fields** (note/jotting):
 ```typescript
@@ -60,7 +60,7 @@ Each collection supports multilingual content via subdirectories (`en/`, `zh-cn/
 
 ### i18n Implementation
 
-**File Organization**: Content separated by locale subdirectories (`/en/post.md`, `/zh-cn/post.md`)
+**File Organization**: Content organized by article directories with language-specific files (`/post/en.md`, `/post/zh-cn.md`, `/post/ja.md`)
 
 **URL Strategy**:
 - Default locale (zh-cn) URLs have no prefix: `/note/post`
@@ -273,14 +273,40 @@ This launches a prompts-based wizard (via `@clack/prompts`) to create properly f
 
 For multilingual setup:
 ```
-src/content/note/en/my-post.md
-src/content/note/zh-cn/my-post.md
-src/content/note/ja/my-post.md
+src/content/note/my-post/en.md
+src/content/note/my-post/zh-cn.md
+src/content/note/my-post/ja.md
+```
+
+Nested categories are supported:
+```
+src/content/note/category/my-post/en.md
+src/content/note/category/my-post/zh-cn.md
+src/content/note/category/my-post/ja.md
 ```
 
 For monolingual setup (when `monolocale: true`):
 ```
 src/content/note/my-post.md
+```
+
+**Special Collections**:
+
+- **preface**: Uses timestamp as directory name
+  ```
+  src/content/preface/2025-12-14-01-07-22/zh-cn.md
+  ```
+
+- **information**: Contains static pages (introduction, linkroll, policy) and data files (chronicle)
+  ```
+  src/content/information/introduction/zh-cn.md
+  src/content/information/chronicle/zh-cn.yaml
+  ```
+
+When using `getEntry()` with these collections, use the format `article/locale`:
+```typescript
+await getEntry("information", "introduction/zh-cn")
+await getEntry("information", "chronicle/zh-cn")
 ```
 
 ### Draft Management
