@@ -105,10 +105,20 @@ export default defineConfig({
 	},
 	vite: {
 		// @ts-expect-error
-		plugins: [yaml(), tailwindcss()]
+		plugins: [yaml(), tailwindcss()],
+		optimizeDeps: {
+			exclude: ["svelte"]
+		},
+		ssr: {
+			noExternal: ["svelte"]
+		}
 	},
 	integrations: [
-		svelte(),
+		svelte({
+			compilerOptions: {
+				css: "injected"
+			}
+		}),
 		mdx(),
 		sitemap(),
 		swup({
