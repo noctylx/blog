@@ -1,5 +1,33 @@
 # Changelog
 
+## [0.31.0](https://github.com/noctylx/blog/compare/v0.30.10...v0.31.0) (2025-12-14)
+
+
+### Features
+
+* add AI translation functionality and related configurations ([580fcbf](https://github.com/noctylx/blog/commit/580fcbf3a448902c85db1b3708cfe206b0053f21))
+* **cfg:** update site title and author information ([caf326d](https://github.com/noctylx/blog/commit/caf326dd68efe6b11adbe2193cd82d55c3918940))
+* update blog introduction ([55c7e4e](https://github.com/noctylx/blog/commit/55c7e4ed006e372b5d21c2bf35e7023992b3cbce))
+* update chronicle entries for blog setup in multiple languages ([4442c45](https://github.com/noctylx/blog/commit/4442c4584b83fb70203abd2cf540485d1022bbfe))
+* update link roll ([14ba2ac](https://github.com/noctylx/blog/commit/14ba2ace8fdfbea45b37b78e04720459e8d5d9c8))
+
+
+### Bug Fixes
+
+* astro check error ([78892e1](https://github.com/noctylx/blog/commit/78892e1c8add22e9d4f91e292cc002706220580d))
+* **svelte:** simplify svelte integration configuration ([2351779](https://github.com/noctylx/blog/commit/23517795be4e7cc8dde3f7d145e5018fb15072b7))
+* **svelte:** svelte hydration error during dev mode startup ([9885bfc](https://github.com/noctylx/blog/commit/9885bfc5322b0395637db3946c04d2d93e3bc661))
+
+
+### Miscellaneous Chores
+
+* **cfg:** added basic configuration ([7072b9e](https://github.com/noctylx/blog/commit/7072b9e7c818c491548cf4f11c74add7c21772a6))
+
+
+### Styles
+
+* **icon:** change site icon ([0e7bd81](https://github.com/noctylx/blog/commit/0e7bd81a4ea1c1f8f7a69d6f9c762657ec2bd97c))
+
 ## [0.30.10](https://github.com/tuyuritio/astro-theme-thought-lite/compare/v0.30.9...v0.30.10) (2025-12-13)
 
 
