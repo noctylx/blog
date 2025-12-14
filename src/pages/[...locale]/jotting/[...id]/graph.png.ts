@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
-import config, { monolocale } from "$config";
+import config from "$config";
 import { generatePathParams } from "$utils/content";
 import graph from "$graph/content";
 

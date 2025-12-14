@@ -3,7 +3,7 @@ import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import { getCollection, render } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { Feed } from "feed";
-import config, { monolocale } from "$config";
+import config from "$config";
 import { isContentForLocale, extractPathFromId } from "$utils/content";
 import i18nit from "$i18n";
 
